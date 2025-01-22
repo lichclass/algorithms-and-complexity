@@ -9,4 +9,10 @@
 *.so
 *.dylib
 
+# Mac specific
 .DS_Store
+
+# Mac executables (files with no extension)
+*
+!*.*
+!*/
