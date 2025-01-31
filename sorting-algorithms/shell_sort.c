@@ -24,7 +24,7 @@ void shell_sort(int arr[], int n)
         for(i = gap; i < n; i++){ // insertion sort the elements with the gap
             int temp = arr[i];
             int j;
-            for(j = i; j >= gap && arr[j - gap] > temp; j -= gap){
+            for(j = i; j >= gap && arr[j - gap] > temp; j -= gap){ // shift elements to the right
                 arr[j] = arr[j - gap];
             }
             arr[j] = temp;
