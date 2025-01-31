@@ -5,15 +5,27 @@
  * 
  * Strand Sort Algorithm
  * 
+ * 1. Create a sublist and initialize it to NULL
+ * 2. Traverse the original list and insert the current node into the sublist
+ * 3. Traverse the original list and check if the current node is greater than the last node of the sublist
+ * 4. If it is, insert the current node into the sublist
+ * 5. If it is not, move to the next node
+ * 6. Merge the sublist with the original list
+ * 7. Repeat the process until the original list is empty
+ * 
+ * Description:
+ *  This algorithm is a comparison-based sorting algorithm that uses a sublist to sort the original list.
+ *  It is a variation of the merge sort algorithm.
+ * 
  */
 
 typedef struct node {
     int value;
-    struct node *next;
+    struct node *next;      
 } *List;
 
 // Required Functions
-void init_list(List *list);
+void init_list(List *list);   
 void insert_last(List *list, int value);
 void pop(List *list);
 void merge_sorted(List *listA, List *listB, List *result);
@@ -29,36 +41,45 @@ void strand_sort(List *list, List *result)
         List sublist;
         init_list(&sublist);
 
-        printf("Current List: ");
-        print_list(*list);
-        printf("\n");
+        // printf("Current List (before): ");
+        // print_list(*list);
+        // printf("\n");
 
         insert_last(&sublist, (*list)->value);
         pop(list);
+
+        // printf("Current List (after): ");
+        // print_list(*list);
+        // printf("\n");
+
+        // printf("Sublist (before): ");
+        // print_list(sublist);
+        // printf("\n");
 
         List *trav = list;
         int last_value = sublist->value;
         while(*trav != NULL)
         {
+            // if((*trav)->value > last_value) // For ascending order
             if((*trav)->value > last_value)
             {
                 last_value = (*trav)->value;
-                insert_last(&sublist, (*trav)->value);
-                pop(list);
+                insert_last(&sublist, last_value);
+                pop(trav);
             } else {
                 trav = &(*trav)->next;
             }
         }
 
-        printf("Sublist: ");
-        print_list(sublist);
-        printf("\n");
+        // printf("Sublist (after): ");
+        // print_list(sublist);
+        // printf("\n");
 
         merge_sorted(&sublist, result, result);
 
-        printf("Result: ");
-        print_list(*result);
-        printf("\n\n");
+        // printf("Result: ");
+        // print_list(*result);
+        // printf("\n\n");
 
         if(*list != NULL)
         {
@@ -68,7 +89,7 @@ void strand_sort(List *list, List *result)
     
 }
 
-void init_list(List *list)
+void init_list(List *list)  
 {
     *list = NULL;
 }
@@ -90,7 +111,7 @@ void pop(List *list)
     if(*list != NULL)
     {
         List temp = *list;
-        *list = (*list)->next;
+        *list = temp->next;
         free(temp);
     }
 }
@@ -106,16 +127,8 @@ void merge_sorted(List *listA, List *listB, List *result)
 
     while(*aptr != NULL && *bptr != NULL)
     {
-        if((*aptr)->value < (*bptr)->value)
-        {
-            *cptr = *aptr;
-            *aptr = (*aptr)->next;
-        }
-        else 
-        {
-            *cptr = *bptr;
-            *bptr = (*bptr)->next;
-        }
+        *cptr = (*aptr)->value < (*bptr)->value ? *aptr : *bptr;
+                (*aptr)->value < (*bptr)->value ? (*aptr = (*aptr)->next) : (*bptr = (*bptr)->next);
         cptr = &(*cptr)->next;
     }
 
@@ -123,7 +136,7 @@ void merge_sorted(List *listA, List *listB, List *result)
 
     *result = merged;
 }
-
+    
 void free_list(List *list)
 {
     while(*list != NULL)
@@ -148,7 +161,8 @@ int main()
 
     insert_last(&list, 5);
     insert_last(&list, 4);
-    insert_last(&list, 3);
+    insert_last(&list, 7);
+    insert_last(&list, 6);
     insert_last(&list, 2);
     insert_last(&list, 1);
     strand_sort(&list, &result);
