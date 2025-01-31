@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * 
+ * Strand Sort Algorithm
+ * 
+ */
+
 typedef struct node {
     int value;
     struct node *next;
