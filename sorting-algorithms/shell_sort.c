@@ -9,6 +9,15 @@
  *  This algorithm is a comparison-based sorting algorithm that uses a gap to sort the original list.
  *  It is a variation of the insertion sort algorithm.
  * 
+ * Time Complexity:
+ *  - Worst Case: O(n^2)
+ *  - Average Case: O(n log n)
+ *  - Best Case: O(n log n)
+ * 
+ * Space Complexity:
+ *  - O(1)
+ * 
+ * Algorithm:
  * 1. Start with a gap of n / 2
  * 2. Insertion sort the elements with the gap
  * 3. Reduce the gap by half
