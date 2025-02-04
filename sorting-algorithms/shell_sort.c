@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-
 /**
  * 
  * Shell Sort Algorithm
@@ -18,12 +15,17 @@
  *  - O(1)
  * 
  * Algorithm:
- * 1. Start with a gap of n / 2
- * 2. Insertion sort the elements with the gap
- * 3. Reduce the gap by half
- * 4. Repeat the process until the gap is 0
+ *  1. Start with a gap of n / 2
+ *  2. Insertion sort the elements with the gap
+ *  3. Reduce the gap by half
+ *  4. Repeat the process until the gap is 0
  * 
  */
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
 
 void shell_sort(int arr[], int n)
 {
@@ -40,6 +42,7 @@ void shell_sort(int arr[], int n)
         }
     }
 }
+
 
 int main()
 {

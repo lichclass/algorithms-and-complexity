@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-
 /**
  * 
  * Comb Sort Algorithm
@@ -15,22 +12,27 @@
  * 
  *  Comb Sort is generally faster than Bubble Sort because it reduces the number of comparisons and swaps.
  * 
- *  Time Complexity:
+ * Time Complexity:
  *  - Worst Case: O(n^2)
  *  - Average Case: O(n^2)
  *  - Best Case: O(n)
  * 
- *  Space Complexity:
+ * Space Complexity:
  *  - O(1)
  * 
  * Algorithm:
- * 1. Initialize the gap to the length of the array.
- * 2. While the gap is greater than 1, do the following:
- *    - For each element in the array, compare it with the element that is gap distance apart.
- *    - If the element is in the wrong order, swap them.
- *    - Reduce the gap by the shrink factor.
- * 3. When the gap becomes 1, the algorithm behaves like Bubble Sort.
+ *  1. Initialize the gap to the length of the array.
+ *  2. While the gap is greater than 1, do the following:
+ *      - For each element in the array, compare it with the element that is gap distance apart.
+ *      - If the element is in the wrong order, swap them.
+ *      - Reduce the gap by the shrink factor.
+ *  3. When the gap becomes 1, the algorithm behaves like Bubble Sort.
  */
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
 
 void comb_sort(int arr[], int n)
 {
@@ -46,6 +48,7 @@ void comb_sort(int arr[], int n)
         }
     }
 }
+
 
 int main()
 {
