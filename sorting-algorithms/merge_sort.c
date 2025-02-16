@@ -27,7 +27,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-
+/* Last Chore: Trying to update the merge function to only have one array */
 void merge(int arr[], int low, int mid, int high){
     int left_n = mid - low + 1;
     int right_n = high - mid;
@@ -37,6 +37,9 @@ void merge(int arr[], int low, int mid, int high){
 
     memcpy(left, arr + low, left_n * sizeof(int));
     memcpy(right, arr + mid + 1, right_n * sizeof(int));
+
+    int sublist[left_n + right_n];
+    memcpy(sublist, arr + low, sizeof(int) * (left_n + right_n));
 
     int i;
     int left_ndx = 0;
