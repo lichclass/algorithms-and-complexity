@@ -37,7 +37,7 @@
 void comb_sort(int arr[], int n)
 {
     int gap;
-    for(gap = n / 1.3; gap > 0; gap /= 1.3) {
+    for(gap = n; gap > 0; gap /= 1.3) {
         int j;
         for(j = gap; j < n; j++){
             if(arr[j] < arr[j - gap]){

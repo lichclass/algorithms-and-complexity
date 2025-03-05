@@ -40,6 +40,28 @@ void gnome_sort(int arr[], int n) {
     }
 }
 
+void gnome_sort_optimized(int arr[], int n){
+    int pos = 0, save = 0;
+    while(pos < n){
+        if(pos == 0 || arr[pos] >= arr[pos - 1]){
+            if(save != 0){
+                pos = save;
+                save = 0;
+            } else {
+                pos++;
+            }
+        } else {
+            if(save == 0){
+                save = pos;
+            }
+            int temp = arr[pos];
+            arr[pos] = arr[pos - 1];
+            arr[pos - 1] = temp;
+            pos--;
+        }
+    }
+}
+
 int main() {
     int arr[] = {4, 5, 2, 3, 3, 1};
     int n = sizeof(arr) / sizeof(arr[0]);

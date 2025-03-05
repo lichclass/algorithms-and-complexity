@@ -1,11 +1,18 @@
 #include <stdio.h>
-#include <stdlib.h>   // for qsort, etc.
+#include <stdlib.h>  
 #include <limits.h>
 
-int compare(const void *x, const void *y) {
-    int a = *(const int *)x;
-    int b = *(const int *)y;
-    return (a - b);
+void shell_sort(int arr[], int n){
+    int i, j, gap, key;
+    for(gap = n; gap > 0; gap /= 2){
+        for(i = gap; i < n; i++){
+            key = arr[i];
+            for(j = i; j >= gap && arr[j - gap] > key; j -= gap){
+                arr[j] = arr[j - gap];
+            }
+            arr[j] = key;
+        }
+    }
 }
 
 void buildTournament(int tree[]){
@@ -23,9 +30,9 @@ void buildTournament(int tree[]){
 }
 
 void tournament_sort(int arr[], int n){
-    // If fewer than 4 elements, just do a normal qsort
+    // If fewer than 4 elements, just do a normal sort
     if(n < 4){
-        qsort(arr, n, sizeof(int), compare);
+        shell_sort(arr, n);
         return;
     }
 
@@ -37,29 +44,20 @@ void tournament_sort(int arr[], int n){
         tree[i] = arr[i - 3];
     }
 
-    // 2) Build the initial tournament
-    buildTournament(tree);
-
-    // 3) Extract winners and replace them with new elements (or INT_MAX)
+    // 2) Build the tournament tree
     for(int i = 0; i < n; i++){
-        // The index of the winning leaf is tree[0].
-        // The winner's *value* is tree[ tree[0] ].
+        buildTournament(tree);
         arr[i] = tree[ tree[0] ];
 
-        // If we still have a "next" element (arr[i+4]) available, use it;
-        // otherwise, set that leaf to INT_MAX so it won't win again.
         if(i < n - 4){
             tree[ tree[0] ] = arr[i + 4];
         } else {
             tree[ tree[0] ] = INT_MAX;
         }
-
-        // Rebuild to find the next winner
-        buildTournament(tree);
     }
 
-    // 4) Finally, do a qsort to ensure the entire array is sorted
-    qsort(arr, n, sizeof(int), compare);
+    // 3) Sort the elements using your algorithm of choice
+    shell_sort(arr, n);
 }
 
 int main(){
@@ -68,7 +66,7 @@ int main(){
     
     tournament_sort(arr, n);
     
-    printf("Sorted array (Tournament Sort v1): ");
+    printf("Sorted array (Tournament Sort Online): ");
     for(int i = 0; i < n; i++){
         printf("%d ", arr[i]);
     }

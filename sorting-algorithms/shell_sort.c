@@ -29,12 +29,10 @@
 
 void shell_sort(int arr[], int n)
 {
-    int gap; // gap between elements
+    int gap, i, j, key;
     for(gap = n / 2; gap > 0; gap /= 2) { // reduce gap by half
-        int i;
         for(i = gap; i < n; i++){ // insertion sort the elements with the gap
-            int temp = arr[i];
-            int j;
+            key = arr[i];
             for(j = i; j >= gap && arr[j - gap] > temp; j -= gap){ // shift elements to the right
                 arr[j] = arr[j - gap];
             }

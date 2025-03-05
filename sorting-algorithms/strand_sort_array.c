@@ -40,11 +40,7 @@ void two_way_merge_sorted(int arr1[], int n1, int arr2[], int *n2){
     int n1_idx = 0;
     int n2_idx = 0;
     while(n1_idx < n1 && n2_idx < *n2){
-        if(arr1[n1_idx] < arr2[n2_idx]){
-            merged[merged_n++] = arr1[n1_idx++];
-        } else {
-            merged[merged_n++] = arr2[n2_idx++];
-        }
+        merged[merged_n++] = (arr1[n1_idx] < arr2[n2_idx]) ? arr1[n1_idx++] : arr2[n2_idx++];
     }
 
     // Add the remaining elements

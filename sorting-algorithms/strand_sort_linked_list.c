@@ -34,9 +34,11 @@ typedef struct node {
     struct node *next;      
 } *List;
 
-void insert_last(List *list, int value);
-void print_list(List list);
-void init_list(List *list);
+// These are just utilities
+void insert_last(List *list, int value); // For easy link list initialization
+void print_list(List list); // For printing
+
+// Actual Functions needed
 void merge_sorted(List *sublist, List *output);
 void strand_sort(List *list);
 
@@ -60,7 +62,7 @@ void merge_sorted(List *sublist, List *output) {
 }
 
 void strand_sort(List *list) {
-    List output = NULL; // Pointer for the final sorted list
+    List output = NULL; 
 
     while (*list != NULL) {
 
@@ -122,9 +124,6 @@ int main() {
     return 0;
 }
 
-void init_list(List *list) {
-    *list = NULL;
-}
 
 void print_list(List list) {
     while (list != NULL) {

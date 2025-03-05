@@ -3,8 +3,8 @@
 #include <limits.h>
 
 void buildTournament(int tree[], int tree_size, int n){
-    int parent = tree_size - n - 1;
-    while (parent >= 0){
+    int parent;
+    for(parent = tree_size / 2 - 1; parent >= 0; parent--){
         int lc = 2 * parent + 1;
 
         int winner;
@@ -16,7 +16,6 @@ void buildTournament(int tree[], int tree_size, int n){
 
         tree[parent] = winner;
 
-        parent--;
     }
 }
 
@@ -29,17 +28,15 @@ void tournament_sort(int arr[], int n){
     for(i = 0; i < n; i++){
         tree[tree_size - n + i] = arr[i];
     }
-
-    buildTournament(tree, tree_size, n);
     
     // Original Array Iterator
     int x;
     for(x = 0; x < n; x++){
-        
-        arr[x] = tree[tree[0]];
-        tree[tree[0]] = INT_MAX;
 
         buildTournament(tree, tree_size, n);
+
+        arr[x] = tree[tree[0]];
+        tree[tree[0]] = INT_MAX;
         
     }
 }
@@ -50,7 +47,7 @@ int main(){
     
     tournament_sort(arr, n);
     
-    printf("Sorted array (Tournament Sort v1): ");
+    printf("Sorted array (Tournament Sort Offline): ");
     for(int i = 0; i < n; i++){
         printf("%d ", arr[i]);
     }
