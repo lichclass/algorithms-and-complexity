@@ -36,29 +36,14 @@ typedef struct {
     int lastNdx;
 } Bucket;
 
-int get_power(int base, int exp) {
-    int result = 1;
-    for (int i = 0; i < exp; i++) {
-        result *= base;
-    }
-    return result;
-}
-
 void radix_sort_lsd(int arr[], int n) {
     
     // Find the largest number
-    int largest = arr[0];
+    int max = arr[0];
     for (int i = 1; i < n; i++) {
-        if (arr[i] > largest) {
-            largest = arr[i];
+        if (arr[i] > max) {
+            max = arr[i];
         }
-    }
-
-    // Find the number of digits
-    int no_digits = 0;
-    while (largest > 0) {
-        largest /= 10;
-        no_digits++;
     }
 
     // Initialize the buckets
@@ -69,10 +54,10 @@ void radix_sort_lsd(int arr[], int n) {
     }
 
     // LSD Radix Sort process
-    int exp = 0;
-    while (exp < no_digits) {
+    int exp = 1;
+    for(exp = 1; max / exp > 0; exp *= 10){
         for (int i = 0; i < n; i++) {
-            int digit = (arr[i] / get_power(10, exp)) % 10;
+            int digit = (arr[i] / exp) % 10;
             buckets[digit].bucket[++buckets[digit].lastNdx] = arr[i];
         }
 
@@ -84,8 +69,6 @@ void radix_sort_lsd(int arr[], int n) {
             }
             buckets[i].lastNdx = -1; // Reset the bucket index
         }
-
-        exp++;
     }
 }
 

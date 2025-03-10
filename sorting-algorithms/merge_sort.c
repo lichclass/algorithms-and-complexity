@@ -27,41 +27,35 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* Last Chore: Trying to update the merge function to only have one array */
+
 void merge(int arr[], int low, int mid, int high){
-    int left_n = mid - low + 1;
-    int right_n = high - mid;
+    int temp_n = high - low + 1;
+    int tempArr[temp_n];
 
-    int *left = (int*)malloc(left_n * sizeof(int));
-    int *right = (int*)malloc(right_n * sizeof(int));
-
-    memcpy(left, arr + low, left_n * sizeof(int));
-    memcpy(right, arr + mid + 1, right_n * sizeof(int));
-
-    int sublist[left_n + right_n];
-    memcpy(sublist, arr + low, sizeof(int) * (left_n + right_n));
-
-    int i;
-    int left_ndx = 0;
-    int right_ndx = 0;
-    for(i = low; left_ndx < left_n && right_ndx < right_n; i++){
-        if(right[right_ndx] <= left[left_ndx]){
-            arr[i] = right[right_ndx++];
+    // Copy data to temp array but should be sorted
+    int left_ndx, right_ndx, i;
+    for(i = 0, left_ndx = low, right_ndx = mid + 1; left_ndx <= mid && right_ndx <= high; i++){
+        if(arr[left_ndx] < arr[right_ndx]){
+            tempArr[i] = arr[left_ndx++];
         } else {
-            arr[i] = left[left_ndx++];
+            tempArr[i] = arr[right_ndx++];
         }
     }
 
-    if(left_ndx < left_n){
-        memcpy(arr + i, left + left_ndx, sizeof(int) * (left_n - left_ndx));
-    } 
-    
-    if(right_ndx < right_n) {
-        memcpy(arr + i, right + right_ndx, sizeof(int) * (right_n - right_ndx));
+    // Copy the remaining elements
+    while(left_ndx <= mid){
+        tempArr[i++] = arr[left_ndx++];
     }
 
-    free(left);
-    free(right);
+    while(right_ndx <= high){
+        tempArr[i++] = arr[right_ndx++];
+    }
+
+    // Copy the temp array to the original array
+    for(i = 0; i < temp_n; i++){
+        arr[low + i] = tempArr[i];
+    }
+
 }
 
 
